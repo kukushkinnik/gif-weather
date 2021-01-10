@@ -20,24 +20,24 @@ async function weatherAPI(city) {
 
 async function updateDisplay() {
     let city = textAr.value;
-    const callGif = await getSimpsonGif();
+    const callGif = await getGif();
     const callWeather = await weatherAPI(city);
     weatherDisplay.innerHTML = callWeather;
     image.src = callGif;
 }
 
-async function getSimpsonGif() {
+async function getGif() {
     let typeOfWeather = await weatherAPI(textAr.value);
 
     const giphyAPI = await fetch(
         `https://api.giphy.com/v1/gifs/search?q=${typeOfWeather[3]}&api_key=lNzNrV0L3XhtLAkQe47x5yy389MSkWph&limit=11`
     );
 
-    let test = await giphyAPI.json();
+    let getGifJson = await giphyAPI.json();
 
     let randomGif = Math.floor(Math.random() * 10);
-    let test2 = test.data[randomGif].images.original.url;
-    return test2;
+    let getGifInfo = getGifJson.data[randomGif].images.original.url;
+    return getGifInfo;
 }
 
 button.addEventListener("click", updateDisplay);
